@@ -53,7 +53,7 @@ Once your project is ready:
 5. You'll see a `firebaseConfig` object — **keep this tab open**, you'll paste these values into your code in the next step
 
 > [!INFO]
-> The `apiKey` in `firebaseConfig` is **not** a secret. It's a project identifier — think of it like a username, not a password. Real security comes from Firebase App Check and Security Rules, which you'd set up before going to production.
+> The `apiKey` in `firebaseConfig` is **not** a secret. It's a project identifier. Real security comes from App Check and Security Rules.
 
 ### Enable Firebase AI Logic
 
@@ -63,7 +63,7 @@ Once your project is ready:
 4. Firebase will automatically enable the necessary Google Cloud APIs in the background. Click **Continue** when it's done.
 
 > [!INFO]
-> Planning to go to production or need higher rate limits? Choose the **Vertex AI** backend instead. You can always switch later with a one-line change in your code.
+> Planning to go to production or need higher rate limits? Choose the **Vertex AI** backend instead. You can always switch later
 
 ---
 
@@ -72,7 +72,7 @@ Once your project is ready:
 Clone the starter pack repo with the basic structure of our project
 
 ```bash
- git clone --URL-
+ git clone https://github.com/Auwalms/recipe-generator
  cd recipe-generator
  npm install
 
@@ -137,7 +137,7 @@ const ai = getAI(app, { backend: new GoogleAIBackend() });
 export const model = getGenerativeModel(ai, { model: "gemini-2.0-flash" });
 ```
 
-> [!Note:]
+> [!Note]
 > : Exporting `model` from `firebase.js` means your components never deal with initialization details. Any component can just `import { model } from "../firebase"` and start making AI requests immediately.
 
 ## Build the Recipe Generator Component
