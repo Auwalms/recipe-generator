@@ -1,4 +1,6 @@
 import { useState, useRef } from "react";
+import ReactMarkdown from "react-markdown";
+import { model } from "../firebase";
 
 export default function RecipeGenerator() {
   const [ingredients, setIngredients] = useState("");
@@ -18,11 +20,32 @@ export default function RecipeGenerator() {
     setLoading(true);
     abortRef.current = false;
 
-    /**
-     * TODO: Write a prompt that encourages the model to generate a creative and practical recipe based on the user's ingredients.
-     * The prompt should ask for a recipe title, description, ingredient list with quantities, and step-by-step instructions.
-     * Make sure to specify that the tone should be friendly and the instructions should be easy to follow.
-     */
+    const prompt = `You are a knowledgeable and passionate Nigerian chef with deep expertise
+in traditional Nigerian and West African cuisine.
+A user has the following ingredients available: ${ingredients}.
+Suggest one authentic Nigerian or West African recipe they can make with these ingredients. Include:
+- The name of the dish (in English and the local language name where applicable, e.g. Yoruba, Igbo, or Hausa)
+- A short, mouth-watering description of the dish and its cultural significance
+- A full list of ingredients with quantities, including any additional pantry staples they might need
+- Clear step-by-step cooking instructions
+- Any helpful tips on how the dish is traditionally served or enjoyed
+Keep the tone warm, encouraging, and culturally proud. Write as if you're teaching a friend how to cook.`;
+
+    try {
+      const result = await model.generateContentStream(prompt);
+
+      for await (const chunk of result.stream) {
+        if (abortRef.current) break;
+        setRecipe((prev) => prev + chunk.text());
+      }
+    } catch (err) {
+      console.error("Firebase AI Logic error:", err);
+      setError(
+        "Something went wrong generating your recipe. Please try again.",
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
@@ -100,9 +123,23 @@ export default function RecipeGenerator() {
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
             🫕 Your Recipe
           </h2>
-          <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-wrap">
-            {recipe}
-          </p>
+          <div className="text-gray-700 text-sm leading-relaxed prose prose-sm max-w-none">
+            <ReactMarkdown
+              components={{
+                h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mt-4 mb-2" {...props} />,
+                h2: ({ node, ...props }) => <h2 className="text-xl font-bold mt-3 mb-2" {...props} />,
+                h3: ({ node, ...props }) => <h3 className="text-lg font-semibold mt-3 mb-1" {...props} />,
+                p: ({ node, ...props }) => <p className="mb-3" {...props} />,
+                ul: ({ node, ...props }) => <ul className="list-disc list-inside mb-3 space-y-1" {...props} />,
+                ol: ({ node, ...props }) => <ol className="list-decimal list-inside mb-3 space-y-1" {...props} />,
+                li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                strong: ({ node, ...props }) => <strong className="font-semibold" {...props} />,
+                em: ({ node, ...props }) => <em className="italic" {...props} />,
+              }}
+            >
+              {recipe}
+            </ReactMarkdown>
+          </div>
         </div>
       )}
     </div>
