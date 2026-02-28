@@ -52,7 +52,7 @@ Once your project is ready:
 4. Click **Register app**
 5. You'll see a `firebaseConfig` object — **keep this tab open**, you'll paste these values into your code in the next step
 
-> [!INFO]
+> [!Note]
 > The `apiKey` in `firebaseConfig` is **not** a secret. It's a project identifier. Real security comes from App Check and Security Rules.
 
 ### Enable Firebase AI Logic
@@ -62,7 +62,7 @@ Once your project is ready:
 3. Choose your AI provider — select **Gemini Developer API** (free to get started, no billing account needed)
 4. Firebase will automatically enable the necessary Google Cloud APIs in the background. Click **Continue** when it's done.
 
-> [!INFO]
+> [!Note]
 > Planning to go to production or need higher rate limits? Choose the **Vertex AI** backend instead. You can always switch later
 
 ---
@@ -134,7 +134,7 @@ const app = initializeApp(firebaseConfig);
 const ai = getAI(app, { backend: new GoogleAIBackend() });
 
 // Get a Gemini model instance — export it so any component can use it
-export const model = getGenerativeModel(ai, { model: "gemini-2.0-flash" });
+export const model = getGenerativeModel(ai, { model: "gemini-2.5-flash-lite" });
 ```
 
 > [!Note]
@@ -156,8 +156,6 @@ export default function RecipeGenerator() {
 
 /**
  * Replace the Todo section with the below code to prompt our model,
- * Ensure its before the `handleReset()` function.
- *
  */
 
     const prompt = `You are a knowledgeable and passionate Nigerian chef with deep expertise
@@ -187,7 +185,6 @@ Keep the tone warm, encouraging, and culturally proud. Write as if you're teachi
     } finally {
       setLoading(false);
     }
-  };
 ```
 
 ### Key Things to Notice
