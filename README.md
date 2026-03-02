@@ -8,7 +8,7 @@ This codelab is your starting point. You'll go from a plain React + Vite project
 
 ### What you'll build
 
-You'll build a **Smart Recipe Generator** — a web app where users describe the ingredients they have on hand and Gemini suggests a recipe in real time, with the response streaming directly to the UI as it's generated.
+You'll build a [**Smart Recipe Generator**](https://recipe-generator-demo.web.app/) — a web app where users describe the ingredients they have on hand and Gemini suggests a recipe in real time, with the response streaming directly to the UI as it's generated.
 
 ![Smart Recipe Generator App Screenshot](src/assets/app-preview.png)
 
@@ -57,7 +57,7 @@ Once your project is ready:
 
 ### Enable Firebase AI Logic
 
-1. In the left sidebar of the Firebase Console, click **Build > AI Logic**
+1. In the left sidebar of the Firebase Console, click **AI > AI Logic**
 2. Click **Get started**
 3. Choose your AI provider — select **Gemini Developer API** (free to get started, no billing account needed)
 4. Firebase will automatically enable the necessary Google Cloud APIs in the background. Click **Continue** when it's done.
