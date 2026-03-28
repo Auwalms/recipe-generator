@@ -20,5 +20,5 @@ const ai = getAI(app, { backend: new GoogleAIBackend() });
 
 // Get a Gemini model instance — export it so any component can use it
 export const model = getGenerativeModel(ai, {
-  model: "gemini-3-flash-preview",
+  model: "gemini-3.1-flash-lite-preview",
 });
