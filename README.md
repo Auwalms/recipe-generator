@@ -57,7 +57,7 @@ Once your project is ready:
 
 ### Enable Firebase AI Logic
 
-1. In the left sidebar of the Firebase Console, click **AI > AI Logic**
+1. In the left sidebar of the Firebase Console, click **AI Services > AI Logic**
 2. Click **Get started**
 3. Choose your AI provider — select **Gemini Developer API** (free to get started, no billing account needed)
 4. Firebase will automatically enable the necessary Google Cloud APIs in the background. Click **Continue** when it's done.
